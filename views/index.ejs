@@ -1,12 +1,22 @@
 <%- include("partials/header.ejs") %>
 
-<div class="container">
+
   <div class="hero">
-    <h1>Bienvenido al Blogsini</h1>
-    <p>Escribe lo que quieras mirey</p>
+    <h1 class="typing-title">
+      <span class="typing-text" data-text="Bienvenido al Blogsini"></span>
+      <span class="typing-cursor">|</span>
+    </h1>
+    <p class="hero-subtitle">Escribe lo que quieras mirey</p>
+    <a href="#posts-section" class="hero-cta">
+            <span>Mira los últimos posts</span>
+            <svg class="hero-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="m6 9 6 6 6-6"/>
+            </svg>
+    </a>
   </div>
 
-  <div class="posts-container">
+<div class="container">
+  <div class="posts-container" id="posts-section">
     <% if (posts.length > 0) { %> <% posts.forEach(post => { %>
     <article class="post-card">
       <div class="post-image">
@@ -37,4 +47,85 @@
   </div>
 </div>
 
+// AGREGA ESTO AL INICIO DE TU SCRIPT EN index.ejs (antes del smooth scroll)
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const typingElement = document.querySelector('.typing-text');
+    const cursorElement = document.querySelector('.typing-cursor');
+    
+    if (typingElement && cursorElement) {
+        const text = typingElement.dataset.text;
+        let index = 0;
+        
+        typingElement.textContent = '';
+
+        function typeWriter() {
+            if (index < text.length) {
+                typingElement.textContent += text.charAt(index);
+                index++;
+                
+                const speed = Math.random() * 100 + 50; 
+                setTimeout(typeWriter, speed);
+            } else {
+                
+                cursorElement.style.animation = 'blink 1s infinite';
+            }
+        }
+
+        setTimeout(typeWriter, 1000);
+    }
+
+    const heroCtaLink = document.querySelector('.hero-cta');
+    
+    if (heroCtaLink) {
+        heroCtaLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                smoothScrollTo(targetElement);
+            }
+        });
+    }
+    
+    function smoothScrollTo(element) {
+        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 1000;
+        let start = null;
+        
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+        }
+        
+        function animation(currentTime) {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easedProgress = easeInOutCubic(progress);
+            const currentPosition = startPosition + (distance * easedProgress);
+            
+            window.scrollTo(0, currentPosition);
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                element.style.transform = 'scale(1.02)';
+                element.style.transition = 'transform 0.3s ease';
+                
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+        
+        requestAnimationFrame(animation);
+    }
+});
+</script>
 <%- include("partials/footer.ejs") %>
