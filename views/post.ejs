@@ -1,0 +1,30 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+  <article class="post-card">
+    <div class="post-header">
+      <h2 class="post-title"><%= post.title %></h2>
+      <div class="post-meta">
+        <span class="author">
+          <%= post.author %>
+        </span>
+        <span class="date">
+          </i> <%= post.date %>
+        </span>
+      </div>
+    </div>
+    <div class="post-content">
+      <p><%= post.content %></p>
+    </div>
+  </article>
+</div>
+
+<div class="post-actions">
+  <a href="/" class="btn btn-secondary"> Cancelar </a>
+  <a href="/edit/<%= post.id %>" class="btn btn-primary">Editar Post</a>
+  <form action="/delete/<%= post.id %>" method="POST" style="display: inline;">
+    <button type="submit" class="btn btn-danger">Eliminar Post</button>
+  </form>
+</div>
+
+<%- include("partials/footer.ejs") %>

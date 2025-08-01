@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "username": "userTest",
+    "email": "user@gmail",
+    "password": "123456",
+    "name": "user"
+  },
+  {
+    "id": 2,
+    "username": "jenn",
+    "email": "genshinplayer@gmail.com",
+    "password": "123456",
+    "name": "Jeniffer"
+  }
+]

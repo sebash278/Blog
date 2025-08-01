@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>El Blogsini</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="nav">
+          <div class="logo-container">
+            <h1 class="logo"><a href="/">Blogsini</a></h1>
+          </div>
+          <nav class="nav-links">
+            <a href="/" class="nav-link"> Inicio </a>
+            <% if (user) { %>
+              <a href="/create" class="nav-link"> Crear Post </a>  
+              <a href="/profile" class="nav-link"> Mi Perfil </a>
+              <form action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="nav-link btn-logout">Cerrar Sesión</button>
+              </form>
+            <% } else { %>
+              <a href="/login" class="nav-link"> Iniciar Sesión </a>
+              <a href="/register" class="nav-link"> Registrarse </a>
+            <% } %>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="main">

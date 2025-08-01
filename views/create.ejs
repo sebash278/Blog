@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+  <div class="create-container">
+    <div class="create-header">
+      <h1>Crear Nuevo Post</h1>
+      <p>Comparte tus ideas con el mundo</p>
+    </div>
+
+    <form action="/create" method="POST" class="create-form">
+      <div class="form-group">
+        <label for="title"> Título del Post </label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="¿Sobre qué quieres escribir?"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="content"> Contenido </label>
+        <textarea
+          id="content"
+          name="content"
+          rows="8"
+          placeholder="Escribe aquí tu post..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <a href="/" class="btn btn-secondary"> Cancelar </a>
+        <button type="submit" class="btn btn-primary">Publicar Post</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

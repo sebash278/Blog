@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+  <div class="hero">
+    <h1>Bienvenido al Blogsini</h1>
+    <p>Escribe lo que quieras mirey</p>
+  </div>
+
+  <div class="posts-container">
+    <% if (posts.length > 0) { %> <% posts.forEach(post => { %>
+    <article class="post-card">
+      <div class="post-image">
+        <img src="https://picsum.photos/400/200?random=<%= post.id %>" alt="<%= post.title %>">
+      </div>
+      <div class="post-header">
+        <a href="/post/<%= post.id %>"
+          ><h2 class="post-title"><%= post.title %></h2></a
+        >
+        <div class="post-meta">
+          <span class="author"> <%= post.author %> </span>
+          <span class="separator">•</span>
+          <span class="date"> <%= post.date %> </span>
+        </div>
+      </div>
+      <div class="post-content">
+        <p><%= post.content.substring(0, 150) %>...</p>
+        <a href="/post/<%= post.id %>" class="read-more">Leer más</a>
+      </div>
+    </article>
+    <% }); %> <% } else { %>
+    <div class="no-posts">
+      <h3>No hay posts aún</h3>
+      <p>¡Sé el primero en crear uno!</p>
+      <a href="/create" class="btn btn-primary">Crear mi primer post</a>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

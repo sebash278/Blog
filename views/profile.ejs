@@ -1,0 +1,39 @@
+<%- include("partials/header.ejs") %>
+
+<div class="profile-header">
+    <!-- <div class="profile-img">
+        img
+    </div> -->
+    <div class="profile-title">
+        <h1>Mi Perfil</h1>
+    </div>
+    <div class="profile-name">
+        <h2>¡Hola, <%= user.username %>!</h2>
+    </div>
+    <div class="posts-container__profile">
+        <% if (posts.length > 0) { %> <% posts.forEach(post => { %>
+        <article class="post-card__profile">
+            <div class="post-header">
+                <a href="/post/<%= post.id %>"
+                ><h2 class="post-title"><%= post.title %></h2></a
+                >
+                <div class="post-meta">
+                <span class="author"> <%= post.author %> </span>
+                <span class="date"> <%= post.date %> </span>
+                </div>
+            </div>
+            <div class="post-content">
+                <p><%= post.content %></p>
+            </div>
+        </article>
+        <% }); %> <% } else { %>
+        <div class="no-posts">
+            <h3>No hay posts aún</h3>
+            <p>¡Crea tu primer post!</p>
+            <a href="/create" class="btn btn-primary">Crear mi primer post</a>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

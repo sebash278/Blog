@@ -1,0 +1,16 @@
+[
+  {
+    "id": 2,
+    "title": "asdasdad",
+    "content": "asdasdasd",
+    "author": "jenn",
+    "date": "31/7/2025"
+  },
+  {
+    "id": 1,
+    "title": "test JSON",
+    "content": "JSONSSSS",
+    "author": "user",
+    "date": "30/7/2025"
+  }
+]
