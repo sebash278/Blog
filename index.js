@@ -14,14 +14,22 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(express.json());
 
 function loadData() {
     try {
         const postsData = fs.readFileSync('./data/posts.json', 'utf8');
         const usersData = fs.readFileSync('./data/users.json', 'utf8');
         
+        const loadedPosts = JSON.parse(postsData);
+        loadedPosts.forEach(post => {
+            if (!post.likes) {
+                post.likes = 0;
+            }
+        });
+        
         return {
-            posts: JSON.parse(postsData),
+            posts: loadedPosts,
             users: JSON.parse(usersData)
         };
     } catch (error) {
@@ -39,11 +47,21 @@ function saveData() {
 }
 
 const data = loadData();
+
 let posts = data.posts.length > 0 ? data.posts : [];
 let users = data.users.length > 0 ? data.users : [];
 
 let nextUserId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
 let nextId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) + 1 : 1;
+
+function readPosts() {
+  return posts; 
+}
+
+function writePosts(updatedPosts) {
+  posts = updatedPosts; 
+  saveData(); 
+}
 
 app.get("/login", (req, res) => {
     res.render("login.ejs", { user: req.session.user || null });
@@ -207,6 +225,88 @@ app.post("/delete/:id", (req, res) => {
     } else {
         res.redirect("/login");
     };
+});
+
+app.post('/api/like/:postId', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'Debes estar loggeado para dar like' });
+  }
+  
+  try {
+    const postId = parseInt(req.params.postId);
+    const userId = req.session.user.id;
+    
+    const postIndex = posts.findIndex(post => post.id === postId);
+    
+    if (postIndex !== -1) {
+      if (!posts[postIndex].likes) {
+        posts[postIndex].likes = 0;
+      }
+      if (!posts[postIndex].likedBy) {
+        posts[postIndex].likedBy = [];
+      }
+
+      if (posts[postIndex].likedBy.includes(userId)) {
+        return res.status(400).json({ error: 'Ya diste like a este post' });
+      }
+
+      posts[postIndex].likes += 1;
+      posts[postIndex].likedBy.push(userId);
+      saveData();
+      
+      res.json({ 
+        success: true, 
+        likes: posts[postIndex].likes,
+        userLiked: true
+      });
+    } else {
+      res.status(404).json({ error: 'Post no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/api/unlike/:postId', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'Debes estar loggeado para quitar like' });
+  }
+  
+  try {
+    const postId = parseInt(req.params.postId);
+    const userId = req.session.user.id;
+    
+    const postIndex = posts.findIndex(post => post.id === postId);
+    
+    if (postIndex !== -1) {
+      if (!posts[postIndex].likedBy || !posts[postIndex].likedBy.includes(userId)) {
+        return res.status(400).json({ error: 'No has dado like a este post' });
+      }
+
+      posts[postIndex].likes = Math.max(0, posts[postIndex].likes - 1);
+      posts[postIndex].likedBy = posts[postIndex].likedBy.filter(id => id !== userId);
+      saveData();
+      
+      res.json({ 
+        success: true, 
+        likes: posts[postIndex].likes,
+        userLiked: false
+      });
+    } else {
+      res.status(404).json({ error: 'Post no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.get('/api/debug/session', (req, res) => {
+  res.json({
+    hasSession: !!req.session.user,
+    user: req.session.user ? req.session.user.username : null
+  });
 });
 
 app.listen(port, () => {

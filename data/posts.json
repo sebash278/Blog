@@ -1,16 +1,75 @@
 [
   {
-    "id": 2,
-    "title": "asdasdad",
-    "content": "asdasdasd",
+    "id": 1,
+    "title": "La revolución de la IA en el desarrollo web moderno",
+    "content": "La inteligencia artificial está transformando completamente la manera en que desarrollamos aplicaciones web. Desde herramientas de code completion hasta sistemas de testing automatizado, la IA se está convirtiendo en el mejor amigo del desarrollador. En este post exploramos las últimas tendencias, herramientas como GitHub Copilot, ChatGPT para debugging, y cómo estas tecnologías están democratizando el acceso al código. También analizamos el impacto en el mercado laboral y qué habilidades necesitarás para mantenerte relevante en esta nueva era digital.",
     "author": "jenn",
-    "date": "31/7/2025"
+    "date": "2/8/2025",
+    "likes": 8,
+    "likedBy": [
+      2
+    ]
   },
   {
-    "id": 1,
-    "title": "test JSON",
-    "content": "JSONSSSS",
-    "author": "user",
-    "date": "30/7/2025"
+    "id": 2,
+    "title": "CSS Grid vs Flexbox: Cuándo usar cada uno",
+    "content": "Una de las preguntas más comunes en frontend: ¿CSS Grid o Flexbox? La respuesta no es tan simple. Flexbox es perfecto para layouts unidimensionales, mientras que Grid brilla en layouts bidimensionales complejos. Te explico con ejemplos prácticos cuándo usar cada uno.",
+    "author": "userTest",
+    "date": "1/8/2025",
+    "likes": 6,
+    "likedBy": [
+      2
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Mi experiencia aprendiendo Node.js en 30 días",
+    "content": "Hace un mes no sabía nada de backend. Hoy tengo mi propio blog funcionando con Node.js y Express. Te cuento todos los recursos que usé, los errores que cometí, y los consejos que me hubiera gustado tener al principio.",
+    "author": "jenn",
+    "date": "31/7/2025",
+    "likes": 6,
+    "likedBy": [
+      2
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Dark Mode: Más que una tendencia",
+    "content": "El modo oscuro no es solo estética. Reduce la fatiga visual, ahorra batería en dispositivos OLED, y mejora la accesibilidad. Te enseño cómo implementarlo correctamente con CSS custom properties.",
+    "author": "userTest",
+    "date": "30/7/2025",
+    "likes": 5
+  },
+  {
+    "id": 5,
+    "title": "JavaScript: 5 trucos que no conocías",
+    "content": "Destructuring avanzado, optional chaining, nullish coalescing... JavaScript evoluciona rápidamente. Estos 5 trucos van a hacer tu código más limpio y eficiente. Perfecto para desarrolladores que quieren nivel up.",
+    "author": "jenn",
+    "date": "29/7/2025",
+    "likes": 5
+  },
+  {
+    "id": 6,
+    "title": "Por qué dejé React por Vue",
+    "content": "Después de 2 años con React, decidí probar Vue 3. La curva de aprendizaje, el ecosistema, la developer experience... Te comparto mi experiencia honesta y por qué no me arrepiento del cambio.",
+    "author": "userTest",
+    "date": "28/7/2025",
+    "likes": 5
+  },
+  {
+    "id": 7,
+    "title": "Git flow para principiantes",
+    "content": "Git puede ser intimidante al principio. Branches, merges, conflicts... Te explico el workflow básico que uso en todos mis proyectos y cómo evitar los errores más comunes.",
+    "author": "jenn",
+    "date": "27/7/2025",
+    "likes": 5
+  },
+  {
+    "id": 8,
+    "title": "Responsive design en 2025",
+    "content": "Mobile-first ya no es suficiente. Con foldables, smartwatches, y pantallas ultra-wide, necesitamos pensar en responsive de manera diferente. Container queries están cambiando el juego.",
+    "author": "userTest",
+    "date": "26/7/2025",
+    "likes": 5
   }
 ]

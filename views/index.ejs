@@ -1,6 +1,5 @@
 <%- include("partials/header.ejs") %>
 
-
   <div class="hero">
     <h1 class="typing-title">
       <span class="typing-text" data-text="Bienvenido al Blogsini"></span>
@@ -36,6 +35,23 @@
         <p><%= post.content.substring(0, 150) %>...</p>
         <a href="/post/<%= post.id %>" class="read-more">Leer más</a>
       </div>
+      <div class="post-actions">
+        <% if (user) { %>
+          <button class="like-btn" onclick="toggleLike(this)" data-post-id="<%= post.id %>">
+            <svg class="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span class="like-count"><%= post.likes || 0 %></span>
+          </button>
+        <% } else { %>
+          <div class="like-display">
+            <svg class="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span><%= post.likes || 0 %></span>
+          </div>
+        <% } %>
+      </div>
     </article>
     <% }); %> <% } else { %>
     <div class="no-posts">
@@ -47,9 +63,17 @@
   </div>
 </div>
 
-// AGREGA ESTO AL INICIO DE TU SCRIPT EN index.ejs (antes del smooth scroll)
-
 <script>
+
+// window.addEventListener('beforeunload', function() {
+//     window.scrollTo(0, 0);
+// });
+
+// window.addEventListener('load', function() {
+//     window.scrollTo(0, 0);
+// });
+
+
 document.addEventListener('DOMContentLoaded', function() {
     
     const typingElement = document.querySelector('.typing-text');
@@ -126,6 +150,70 @@ document.addEventListener('DOMContentLoaded', function() {
         
         requestAnimationFrame(animation);
     }
+    
 });
+
+  function toggleLike(button) {
+    const likeCount = button.querySelector('.like-count');
+    const currentCount = parseInt(likeCount.textContent);
+    
+    if (button.classList.contains('liked')) {
+      button.classList.remove('liked');
+      likeCount.textContent = currentCount - 1;
+    } else {
+      button.classList.add('liked');
+      likeCount.textContent = currentCount + 1;
+    }
+  }
+
+async function toggleLike(button) {
+  const postId = button.dataset.postId;
+  const likeCount = button.querySelector('.like-count');
+  const isLiked = button.classList.contains('liked');
+  
+  console.log('Estado actual - isLiked:', isLiked); // Para debug
+  console.log('Acción a realizar:', isLiked ? 'unlike' : 'like'); // Para debug
+  
+  try {
+    // ✅ CORREGIDO: La lógica está bien, pero vamos a debuggear
+    const action = isLiked ? 'unlike' : 'like';
+    const url = `/api/${action}/${postId}`;
+    
+    console.log('URL de la petición:', url); // Para debug
+    
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    const data = await response.json();
+    console.log('Respuesta del servidor:', data); // Para debug
+    
+    if (response.ok) {
+      // Actualizar UI
+      likeCount.textContent = data.likes;
+      
+      if (isLiked) {
+        button.classList.remove('liked');
+        console.log('Like removido'); // Para debug
+      } else {
+        button.classList.add('liked');
+        console.log('Like añadido'); // Para debug
+      }
+    } else if (response.status === 401) {
+      console.log('Error 401 - No autorizado'); // Para debug
+      alert('Debes iniciar sesión para dar like');
+      window.location.href = '/login';
+    } else {
+      console.error('Error del servidor:', data.error);
+      alert(data.error || 'Error al procesar like');
+    }
+  } catch (error) {
+    console.error('Error de red:', error);
+    alert('Error de conexión');
+  }
+}
 </script>
 <%- include("partials/footer.ejs") %>
