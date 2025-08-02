@@ -6,6 +6,11 @@
       <h1>Crea tu Cuenta</h1>
     </div>
 
+    <% if (typeof error !== "undefined") { %>
+      <div class="alert alert-error">
+        <%= error %>
+      </div>
+    <% } %>
     <form action="/register" method="POST" class="register-form">
       <div class="form-group__register">
         <label for="name"> Nombre Completo </label>
@@ -47,7 +52,9 @@
           id="password"
           name="password"
           required
+          oninput="validatePassword()"
         >
+        <small id="password-warning" style="color: #ef4444; font-size: 0.8rem; display: none;"></small>
     </div>
 
       <div class="form-actions">
@@ -57,5 +64,21 @@
     </form>
   </div>
 </div>
+
+<script>
+  function validatePassword() {
+    const pass = document.getElementById("password").value;
+    const warning = document.getElementById("password-warning");
+    const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    if (!strong.test(pass)) {
+      warning.style.display = "block";
+      warning.textContent =
+        "Contraseña insegura: mínimo 8 caracteres, con mayúscula, minúscula, número y símbolo.";
+    } else {
+      warning.style.display = "none";
+    }
+  }
+</script>
 
 <%- include("partials/footer.ejs") %>

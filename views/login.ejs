@@ -6,6 +6,11 @@
       <h1>Inicia Sesion</h1>
     </div>
 
+    <% if (typeof error !== "undefined") { %>
+      <div class="alert alert-error">
+        <%= error %>
+      </div>
+    <% } %>
     <form action="/login" method="POST" class="login-form">
       <div class="form-group__login">
         <label for="username"> Nombre de usuario (o email)</label>

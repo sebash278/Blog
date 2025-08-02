@@ -2,26 +2,35 @@ import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
 import fs from "fs";
-import fileStoreFactory from "session-file-store";
+import SQLiteStoreFactory from "connect-sqlite3";
+import path from "path";
+
+const sessionDir = path.resolve("sessions");
+if (!fs.existsSync(sessionDir)) {
+  fs.mkdirSync(sessionDir, { recursive: true });
+}
+
+const SQLiteStore = SQLiteStoreFactory(session);
 
 const app = express();
 const port = 3000;
-const FileStore = fileStoreFactory(session);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
-    store: new FileStore({
-      path: "./sessions",
-      ttl: 86400,
-      retries: 1,
+    store: new SQLiteStore({
+      db: "sessions.sqlite",
+      dir: "./sessions",
     }),
     secret: "blogsini-bananini",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false },
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   })
 );
 app.use(express.json());
@@ -170,40 +179,59 @@ app.post("/login", (req, res) => {
     req.session.user = user;
     res.redirect("/");
   } else {
-    res.status(401).redirect("/login");
+
+    let errorMessage = "";
+
+    if (loginUser) {
+      errorMessage = "La contraseña es incorrecta.";
+    } else if (loginPass) {
+      errorMessage = "El usuario no se encontró.";
+    }
+
+    res.render("login", { error: errorMessage, user: req.session.user || null});
   }
 });
 
 app.post("/register", (req, res) => {
   if (req.session.user) {
-    res.redirect("/");
-  } else {
-    const registerName = req.body.name;
-    const registerUser = req.body.username;
-    const registerEmail = req.body.email;
-    const registerPass = req.body.password;
-
-    const existingUser = users.find(
-      (u) => u.username === registerUser || u.email === registerEmail
-    );
-
-    if (existingUser) {
-      res.redirect("/login");
-    } else {
-      const newUser = {
-        id: nextUserId++,
-        username: registerUser,
-        email: registerEmail,
-        password: registerPass,
-        name: registerName,
-      };
-      users.push(newUser);
-      req.session.user = newUser;
-      saveData();
-      res.redirect("/");
-    }
+    return res.redirect("/");
   }
+
+  const registerName = req.body.name;
+  const registerUser = req.body.username;
+  const registerEmail = req.body.email;
+  const registerPass = req.body.password;
+
+  const existingUser = users.find(
+    (u) => u.username === registerUser || u.email === registerEmail
+  );
+
+  if (existingUser) {
+    let errorMessage = "";
+
+    if (existingUser.username === registerUser) {
+      errorMessage = "El nombre de usuario ya está en uso.";
+    } else if (existingUser.email === registerEmail) {
+      errorMessage = "El correo ya está registrado.";
+    }
+
+    return res.render("register", { error: errorMessage, user: req.session.user || null});
+  }
+
+  const newUser = {
+    id: nextUserId++,
+    username: registerUser,
+    email: registerEmail,
+    password: registerPass,
+    name: registerName,
+  };
+
+  users.push(newUser);
+  req.session.user = newUser;
+  saveData();
+  res.redirect("/");
 });
+
 
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
