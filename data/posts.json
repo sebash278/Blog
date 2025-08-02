@@ -5,10 +5,8 @@
     "content": "La inteligencia artificial está transformando completamente la manera en que desarrollamos aplicaciones web. Desde herramientas de code completion hasta sistemas de testing automatizado, la IA se está convirtiendo en el mejor amigo del desarrollador. En este post exploramos las últimas tendencias, herramientas como GitHub Copilot, ChatGPT para debugging, y cómo estas tecnologías están democratizando el acceso al código. También analizamos el impacto en el mercado laboral y qué habilidades necesitarás para mantenerte relevante en esta nueva era digital.",
     "author": "jenn",
     "date": "2/8/2025",
-    "likes": 8,
-    "likedBy": [
-      2
-    ]
+    "likes": 7,
+    "likedBy": []
   },
   {
     "id": 2,
@@ -16,10 +14,8 @@
     "content": "Una de las preguntas más comunes en frontend: ¿CSS Grid o Flexbox? La respuesta no es tan simple. Flexbox es perfecto para layouts unidimensionales, mientras que Grid brilla en layouts bidimensionales complejos. Te explico con ejemplos prácticos cuándo usar cada uno.",
     "author": "userTest",
     "date": "1/8/2025",
-    "likes": 6,
-    "likedBy": [
-      2
-    ]
+    "likes": 5,
+    "likedBy": []
   },
   {
     "id": 3,
@@ -27,10 +23,8 @@
     "content": "Hace un mes no sabía nada de backend. Hoy tengo mi propio blog funcionando con Node.js y Express. Te cuento todos los recursos que usé, los errores que cometí, y los consejos que me hubiera gustado tener al principio.",
     "author": "jenn",
     "date": "31/7/2025",
-    "likes": 6,
-    "likedBy": [
-      2
-    ]
+    "likes": 5,
+    "likedBy": []
   },
   {
     "id": 4,
@@ -38,7 +32,8 @@
     "content": "El modo oscuro no es solo estética. Reduce la fatiga visual, ahorra batería en dispositivos OLED, y mejora la accesibilidad. Te enseño cómo implementarlo correctamente con CSS custom properties.",
     "author": "userTest",
     "date": "30/7/2025",
-    "likes": 5
+    "likes": 5,
+    "likedBy": []
   },
   {
     "id": 5,
@@ -46,7 +41,10 @@
     "content": "Destructuring avanzado, optional chaining, nullish coalescing... JavaScript evoluciona rápidamente. Estos 5 trucos van a hacer tu código más limpio y eficiente. Perfecto para desarrolladores que quieren nivel up.",
     "author": "jenn",
     "date": "29/7/2025",
-    "likes": 5
+    "likes": 6,
+    "likedBy": [
+      2
+    ]
   },
   {
     "id": 6,
@@ -54,7 +52,10 @@
     "content": "Después de 2 años con React, decidí probar Vue 3. La curva de aprendizaje, el ecosistema, la developer experience... Te comparto mi experiencia honesta y por qué no me arrepiento del cambio.",
     "author": "userTest",
     "date": "28/7/2025",
-    "likes": 5
+    "likes": 6,
+    "likedBy": [
+      2
+    ]
   },
   {
     "id": 7,
