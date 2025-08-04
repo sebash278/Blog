@@ -21,8 +21,8 @@
             <% if (user) { %>
               <a href="/create" class="nav-link"> Crear Post </a>  
               <a href="/profile" class="nav-link"> Mi Perfil </a>
-              <form action="/logout" method="POST" style="display: inline;">
-                <button type="submit" class="nav-link btn-logout">Cerrar Sesión</button>
+              <form action="/logout" method="POST" class="logout-form">
+                <button type="submit" class="btn-logout">Cerrar Sesión</button>
               </form>
             <% } else { %>
               <a href="/login" class="nav-link"> Iniciar Sesión </a>
