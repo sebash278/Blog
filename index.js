@@ -188,7 +188,7 @@ app.post("/login", (req, res) => {
       errorMessage = "El usuario no se encontró.";
     }
 
-    res.render("login", { error: errorMessage, user: req.session.user || null});
+    res.render("login", { error: errorMessage, user: req.session.user || null, pageStyles: "login" });
   }
 });
 
@@ -215,7 +215,7 @@ app.post("/register", (req, res) => {
       errorMessage = "El correo ya está registrado.";
     }
 
-    return res.render("register", { error: errorMessage, user: req.session.user || null});
+    return res.render("register", { error: errorMessage, user: req.session.user || null, pageStyles: "login"});
   }
 
   const newUser = {

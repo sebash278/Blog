@@ -19,6 +19,7 @@
   --border: #374151; /* Bordes sutiles */
   --danger: #ef4444; /* Eliminar */
   --danger-hover: #f87171; /* Eliminar (Hover) */
+  --success: #10b981 /* Registro (Principalmente) */
 }
 
 * {
@@ -93,6 +94,20 @@ h3 {
 .btn-primary:hover {
   background-color: var(--purple-hover);
 }
+
+.btn-primary:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+}
+
+/* .btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px #8b5cf677;
+} */
 
 .btn-secondary {
   background-color: transparent;
@@ -256,7 +271,6 @@ h3 {
   padding: 2rem 1rem;
   text-align: center;
   border-top: 1px solid var(--border);
-  margin-top: 4rem;
 }
 
 .footer p {
@@ -283,7 +297,8 @@ h3 {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -291,10 +306,21 @@ h3 {
   }
 }
 
-.alert-error {
-  background-color: #ffd5d5;
-  color: var(--danger);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 12px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border);
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: var(--purple-primary);
 }
