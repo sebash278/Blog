@@ -1,15 +1,15 @@
 <%- include("partials/header.ejs") %>
 
 <div class="container">
-  <div class="edit-container">
-    <div class="edit-header">
+  <div class="create-container">
+    <div class="create-header">
       <h1>Editar Post</h1>
-      <p>Realiza cambios en tu post</p>
+      <p>Actualiza tu contenido</p>
     </div>
 
-    <form action="/edit/<%= post.id %>" method="POST" class="edit-form">
+    <form action="/edit/<%= post.id %>" method="POST" enctype="multipart/form-data" class="create-form">
       <div class="form-group">
-        <label for="title"> Título del Post </label>
+        <label for="title">Título del Post</label>
         <input
           type="text"
           id="title"
@@ -20,11 +20,65 @@
       </div>
 
       <div class="form-group">
-        <p>Autor: <strong><%= post.author %></strong></p>
+        <label>Imagen del Post</label>
+        <% if (post.featuredImage && !post.featuredImage.includes('picsum.photos')) { %>
+          <div class="current-image">
+            <label class="current-image-label">Imagen actual:</label>
+            <div class="current-image-container">
+              <img src="<%= post.featuredImage %>" alt="Imagen actual del post" class="current-img">
+              <div class="current-image-overlay">
+                <span>Imagen actual</span>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+        <div class="image-upload-container">
+          <input 
+            type="file" 
+            id="postImage" 
+            name="postImage" 
+            accept="image/*"
+            class="file-input"
+          >
+          <label for="postImage" class="file-input-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="9" cy="9" r="2"/>
+              <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+            </svg>
+            <span class="file-input-text">
+              <% if (post.featuredImage && !post.featuredImage.includes('picsum.photos')) { %>
+                Cambiar imagen
+              <% } else { %>
+                Seleccionar nueva imagen
+              <% } %>
+            </span>
+          </label>
+
+          <div id="imagePreview" class="image-preview" style="display: none;">
+            <img id="previewImg" src="" alt="Vista previa">
+            <button type="button" class="remove-image" onclick="removeImage()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <small class="form-help">
+          <% if (post.featuredImage && !post.featuredImage.includes('picsum.photos')) { %>
+            Deja vacío si no quieres cambiar la imagen actual.
+          <% } else { %>
+            Selecciona una imagen para reemplazar la imagen automática.
+          <% } %>
+          Formatos admitidos: JPG, PNG, GIF, WebP. Tamaño máximo: 5MB.
+        </small>
       </div>
 
       <div class="form-group">
-        <label for="content"> Contenido </label>
+        <label for="content">Contenido</label>
         <textarea
           id="content"
           name="content"
@@ -34,11 +88,80 @@
       </div>
 
       <div class="form-actions">
-        <a href="/" class="btn btn-secondary"> Cancelar </a>
-        <button type="submit" class="btn btn-primary">Actualizar Post</button>
+        <a href="/post/<%= post.id %>" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="btn-text">Guardar Cambios</span>
+          <span class="btn-loading" style="display: none;">
+            <svg class="spinner" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.3"/>
+              <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+            </svg>
+            Guardando...
+          </span>
+        </button>
       </div>
     </form>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('postImage');
+    const preview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileLabel = document.querySelector('.file-input-text');
+    const form = document.querySelector('.create-form');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+          alert('El archivo es demasiado grande. Máximo 5MB.');
+          fileInput.value = '';
+          return;
+        }
+
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+          alert('Tipo de archivo no válido. Solo se permiten imágenes JPG, PNG, GIF, WebP.');
+          fileInput.value = '';
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          preview.style.display = 'block';
+          fileLabel.textContent = file.name;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    form.addEventListener('submit', function() {
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'flex';
+      submitBtn.disabled = true;
+    });
+  });
+
+  function removeImage() {
+    const fileInput = document.getElementById('postImage');
+    const preview = document.getElementById('imagePreview');
+    const fileLabel = document.querySelector('.file-input-text');
+    
+    fileInput.value = '';
+    preview.style.display = 'none';
+
+    if (post.featuredImage && !post.featuredImage.includes('picsum.photos')) {
+      fileLabel.textContent = 'Cambiar imagen';
+    } else {
+      fileLabel.textContent = 'Seleccionar nueva imagen';
+    }
+  }
+</script>
 
 <%- include("partials/footer.ejs") %>

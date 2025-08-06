@@ -11,7 +11,8 @@
     "username": "jenn",
     "email": "genshinplayer@gmail.com",
     "password": "123456",
-    "name": "Jeniffer"
+    "name": "Jeniffer",
+    "profileImage": "/uploads/profiles/profile-1754441243464-316941375.jpg"
   },
   {
     "id": 3,
@@ -19,5 +20,20 @@
     "email": "test@gmail.com",
     "password": "insegura",
     "name": "Test"
+  },
+  {
+    "id": 4,
+    "username": "Tester2",
+    "email": "tester@gmail.com",
+    "password": "Tester2*",
+    "name": "Tester2"
+  },
+  {
+    "id": 5,
+    "username": "ImagenTest",
+    "email": "img@gmail.com",
+    "password": "Img1234*",
+    "name": "ImgTest",
+    "profileImage": "/uploads/profiles/profile-1754438957772-400989628.jpg"
   }
 ]

@@ -143,13 +143,14 @@ h3 {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .btn-logout:hover {
   background-color: var(--danger);
   color: white;
   border-color: var(--danger-hover);
-  transform: scale(1.02); /* Transformación más sutil */
+  transform: scale(1.02);
   box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
 }
 

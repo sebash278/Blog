@@ -1,0 +1,283 @@
+.create-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.create-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.create-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--purple-primary), var(--purple-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.create-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--purple-primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: var(--bg-secondary);
+}
+
+.form-group textarea {
+  min-height: 200px;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+/* Estilos para upload de imagen */
+.image-upload-container {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.file-input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 2px dashed var(--purple-primary);
+  border-radius: 12px;
+  background: rgba(139, 92, 246, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  min-height: 120px;
+}
+
+.file-input-label:hover {
+  border-color: var(--purple-hover);
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--purple-primary);
+  transform: translateY(-2px);
+}
+
+.file-input-label svg {
+  width: 32px;
+  height: 32px;
+  color: var(--purple-primary);
+}
+
+.file-input-text {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Preview de imagen */
+.image-preview {
+  position: relative;
+  margin-top: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+}
+
+.image-preview img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-image {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.remove-image:hover {
+  background: var(--danger);
+  transform: scale(1.1);
+}
+
+.form-help {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.btn {
+    margin-bottom: 16px;
+}
+
+/* Loading spinner */
+.btn-loading {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  color: currentColor;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.current-image {
+  margin-bottom: 1rem;
+}
+
+.current-image-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.current-image-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+  border: 2px solid rgba(139, 69, 19, 0.1);
+}
+
+.current-img {
+  display: block;
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.current-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .create-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .create-header h1 {
+    font-size: 2rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .file-input-label {
+    padding: 1.5rem 1rem;
+    min-height: 100px;
+  }
+
+  .file-input-label svg {
+    width: 28px;
+    height: 28px;
+  }
+}

@@ -1,5 +1,17 @@
 [
   {
+    "id": 9,
+    "title": "xd",
+    "content": "adasdasdsad",
+    "author": "ImagenTest",
+    "date": "5/8/2025",
+    "likes": 1,
+    "featuredImage": "/uploads/posts/post-1754438927242-472262691.jpg",
+    "likedBy": [
+      2
+    ]
+  },
+  {
     "id": 1,
     "title": "La revolución de la IA en el desarrollo web moderno",
     "content": "La inteligencia artificial está transformando completamente la manera en que desarrollamos aplicaciones web. Desde herramientas de code completion hasta sistemas de testing automatizado, la IA se está convirtiendo en el mejor amigo del desarrollador. En este post exploramos las últimas tendencias, herramientas como GitHub Copilot, ChatGPT para debugging, y cómo estas tecnologías están democratizando el acceso al código. También analizamos el impacto en el mercado laboral y qué habilidades necesitarás para mantenerte relevante en esta nueva era digital.",

@@ -19,7 +19,9 @@
     <% if (posts.length > 0) { %> <% posts.forEach(post => { %>
     <article class="post-card">
       <div class="post-image">
-        <img src="https://picsum.photos/400/200?random=<%= post.id %>" alt="<%= post.title %>">
+        <img src="<%= post.featuredImage || 'https://picsum.photos/400/200?random=' + post.id %>" 
+             alt="<%= post.title %>"
+             onerror="this.src='https://picsum.photos/400/200?random=<%= post.id %>'">
       </div>
       <div class="post-header">
         <a href="/post/<%= post.id %>"
@@ -28,7 +30,25 @@
         <div class="post-meta">
           <span class="author"> <%= post.author %> </span>
           <span class="separator">•</span>
-          <span class="date"> <%= post.date %> </span>
+          <span class="date"> 
+            <% 
+              let displayDate = 'Fecha no disponible';
+              try {
+                if (post.createdAt) {
+                  displayDate = new Date(post.createdAt).toLocaleDateString('es-ES');
+                } else if (post.date) {
+                  if (post.date.includes('/')) {
+                    displayDate = post.date;
+                  } else {
+                    displayDate = new Date(post.date).toLocaleDateString('es-ES');
+                  }
+                }
+              } catch (error) {
+                displayDate = post.date || 'Fecha no disponible';
+              }
+            %>
+            <%= displayDate %>
+          </span>
         </div>
       </div>
       <div class="post-content">

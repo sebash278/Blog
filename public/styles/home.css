@@ -48,9 +48,8 @@
   z-index: 2;
   max-width: 800px;
   text-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
-    /* Glow morado */ 0 0 20px rgba(139, 92, 246, 0.3),
-    /* Glow más amplio */ 0 0 40px rgba(139, 92, 246, 0.1),
-    /* Glow exterior */ 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de profundidad */
+    0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1),
+    2px 2px 4px rgba(0, 0, 0, 0.3);
   opacity: 0;
   transform: translateY(30px);
   animation: slideInGlow 1.2s ease-out 0.5s forwards;
@@ -128,31 +127,6 @@
 .hero-subtitle {
   position: relative;
 }
-
-/* .typing-title:hover .typing-text {
-  animation: glitch 0.3s ease-in-out;
-} */
-
-/* @keyframes glitch {
-  0% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(-2px);
-  }
-  40% {
-    transform: translateX(2px);
-  }
-  60% {
-    transform: translateX(-1px);
-  }
-  80% {
-    transform: translateX(1px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-} */
 
 @keyframes slideInGlow {
   0% {
@@ -256,51 +230,6 @@
   }
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero {
-    min-height: 50vh;
-    padding: 60px 20px;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-    text-shadow: 0 0 8px rgba(139, 92, 246, 0.4),
-      0 0 15px rgba(139, 92, 246, 0.2), 1px 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero p {
-    font-size: 1.1rem;
-    padding: 0.8rem 1.2rem;
-  }
-
-  .hero-cta {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .hero-cta-arrow {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    min-height: 40vh;
-    padding: 40px 15px;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-    padding: 0.7rem 1rem;
-  }
-}
-
 /* Posts */
 
 .posts-container {
@@ -355,7 +284,6 @@
   box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
 }
 
-
 .post-card:hover .post-title {
   transform: translateX(5px);
   color: var(--purple-hover);
@@ -373,6 +301,10 @@
 }
 .post-card:nth-child(3) {
   animation-delay: 0.3s;
+}
+
+.post-card:last-child {
+  margin-bottom: 2rem;
 }
 
 @keyframes slideInUp {
@@ -589,38 +521,220 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .posts-container {
-    grid-template-columns: repeat(3, 1fr);
+/* ===========================================
+   RESPONSIVE MEDIA QUERIES
+   =========================================== */
+
+
+@media (max-width: 767px) and (min-width: 576px) {
+  .hero {
+    min-height: 60vh;
+    padding: 40px 16px;
+    background-attachment: scroll;
   }
 
-  .post-card:first-child {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-}
-
-@media (max-width: 768px) {
-  .posts-container {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 180px;
-    gap: 16px;
+  .hero h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
   }
 
-  .post-card:first-child {
-    grid-column: span 2;
-    grid-row: span 2;
+  .hero p {
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    max-width: 400px;
+    margin-bottom: 1.8rem;
   }
-}
 
-@media (max-width: 480px) {
+  .hero-cta {
+    padding: 0.8rem 1.6rem;
+    font-size: 0.95rem;
+    gap: 0.6rem;
+  }
+
+  .hero-cta-arrow {
+    width: 18px;
+    height: 18px;
+  }
+
   .posts-container {
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    gap: 16px;
+    margin-top: 20px;
   }
 
   .post-card:first-child {
     grid-column: span 1;
     grid-row: span 1;
+    border: 1px solid var(--purple-primary);
+  }
+
+  .post-card {
+    padding: 14px;
+    min-height: 160px;
+  }
+
+  .post-image {
+    height: 120px;
+    border-radius: 8px;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+    margin: 6px 0;
+  }
+
+  .post-content {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .post-meta {
+    font-size: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .post-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .read-more {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero {
+    min-height: 50vh;
+    padding: 30px 12px;
+    background-attachment: scroll;
+    margin-bottom: 40px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 6px rgba(139, 92, 246, 0.4),
+      0 0 12px rgba(139, 92, 246, 0.2), 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+    max-width: 320px;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .hero-cta {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    border-radius: 25px;
+  }
+
+  .hero-cta-arrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .posts-container {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 15px;
+  }
+
+  .post-card:first-child {
+    grid-column: span 1;
+    grid-row: span 1;
+    border: 1px solid var(--purple-primary);
+  }
+
+  .post-card {
+    padding: 12px;
+    min-height: 140px;
+    border-radius: 10px;
+  }
+
+  .post-image {
+    height: 100px;
+    border-radius: 6px;
+  }
+
+  .post-title {
+    font-size: 1rem;
+    margin: 5px 0;
+    line-height: 1.3;
+  }
+
+  .post-content {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .post-meta {
+    font-size: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    margin-bottom: 6px;
+  }
+
+  .post-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .like-btn,
+  .like-display {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+  }
+
+  .read-more {
+    font-size: 0.8rem;
+    align-self: flex-end;
+  }
+
+  .heart {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .hero {
+    min-height: 70vh;
+    padding: 20px 16px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    margin-bottom: 1.5rem;
+  }
+
+  .posts-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .post-card:first-child {
+    grid-column: span 2;
   }
 }

@@ -1,39 +1,278 @@
 <%- include("partials/header.ejs") %>
 
-<div class="profile-header">
-    <!-- <div class="profile-img">
-        img
-    </div> -->
-    <div class="profile-title">
-        <h1>Mi Perfil</h1>
-    </div>
-    <div class="profile-name">
-        <h2>¡Hola, <%= user.username %>!</h2>
-    </div>
-    <div class="posts-container__profile">
-        <% if (posts.length > 0) { %> <% posts.forEach(post => { %>
-        <article class="post-card__profile">
-            <div class="post-header">
-                <a href="/post/<%= post.id %>"
-                ><h2 class="post-title"><%= post.title %></h2></a
-                >
-                <div class="post-meta">
-                <span class="author"> <%= post.author %> </span>
-                <span class="date"> <%= post.date %> </span>
+<div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <img 
+                        id="profileImg" 
+                        src="<%= user.profileImage || '/images/default-avatar.png' %>" 
+                        alt="Imagen de perfil" 
+                        class="profile-image"
+                    >
+                    <div class="image-overlay">
+                        <button type="button" class="btn-change-image" onclick="openImageModal()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                            Cambiar foto
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-info">
+                    <h1 class="profile-name"><%= user.username %></h1>
+                    <p class="profile-email"><%= user.email %></p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number"><%= posts.length %></span>
+                            <span class="stat-label">Posts publicados</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number"><%= new Date(user.createdAt || Date.now()).getFullYear() %></span>
+                            <span class="stat-label">Miembro desde</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="post-content">
-                <p><%= post.content %></p>
+
+            <div class="user-posts-section">
+                <h2 class="section-title">Mis Posts</h2>
+                
+                <% if (posts.length > 0) { %>
+                    <div class="posts-grid">
+                        <% posts.forEach(post => { %>
+                            <article class="post-card">
+                                <div class="post-image">
+                                    <img src="<%= post.featuredImage || 'https://picsum.photos/400/250?random=' + post.id %>" 
+                                         alt="<%= post.title %>" loading="lazy">
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title">
+                                        <a href="/post/<%= post.id %>"><%= post.title %></a>
+                                    </h3>
+                                    <p class="post-excerpt"><%= post.content.substring(0, 120) %>...</p>
+                                    <div class="post-meta">
+                                        <span class="post-date">
+                                            <% 
+                                                let displayDate = 'Fecha no disponible';
+                                                try {
+                                                    if (post.createdAt) {
+                                                        displayDate = new Date(post.createdAt).toLocaleDateString('es-ES');
+                                                    } else if (post.date) {
+                                                        // Fallback para posts antiguos
+                                                        if (post.date.includes('/')) {
+                                                            displayDate = post.date;
+                                                        } else {
+                                                            displayDate = new Date(post.date).toLocaleDateString('es-ES');
+                                                        }
+                                                    }
+                                                } catch (error) {
+                                                    console.log('Error parseando fecha:', error);
+                                                    displayDate = post.date || 'Fecha no disponible';
+                                                }
+                                            %>
+                                            <%= displayDate %>
+                                        </span>
+                                        <div class="post-actions">
+                                            <a href="/edit/<%= post.id %>" class="btn btn-sm btn-outline">Editar</a>
+                                            <form action="/delete/<%= post.id %>" method="POST" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm btn-danger" 
+                                                        onclick="return confirm('¿Estás seguro de que quieres eliminar este post?')">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <h3>No has publicado ningún post aún</h3>
+                        <p>¡Comienza a compartir tus ideas con el mundo!</p>
+                        <a href="/create" class="btn btn-primary">Crear mi primer post</a>
+                    </div>
+                <% } %>
             </div>
-        </article>
-        <% }); %> <% } else { %>
-        <div class="no-posts">
-            <h3>No hay posts aún</h3>
-            <p>¡Crea tu primer post!</p>
-            <a href="/create" class="btn btn-primary">Crear mi primer post</a>
         </div>
-        <% } %>
+
+        <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cambiar imagen de perfil</h3>
+                <button type="button" class="modal-close" onclick="closeImageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="file-input-container">
+                        <input type="file" id="imageInput" name="profileImage" accept="image/*" required>
+                        <label for="imageInput" class="file-input-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Seleccionar imagen</span>
+                        </label>
+                    </div>
+                    <div class="file-info">
+                        <small>Formatos admitidos: JPG, PNG, GIF, WebP. Tamaño máximo: 5MB</small>
+                    </div>
+                    <div id="imagePreview" class="image-preview" style="display: none;">
+                        <img id="previewImg" src="" alt="Vista previa">
+                    </div>
+                </form>
+                <div id="uploadProgress" class="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">Subiendo...</span>
+                </div>
+                <div id="uploadMessage" class="upload-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeImageModal()">Cancelar</button>
+                <% if (user.profileImage) { %>
+                    <button type="button" class="btn btn-danger" onclick="deleteProfileImage()">Eliminar imagen</button>
+                <% } %>
+                <button type="button" class="btn btn-primary" onclick="uploadImage()">Subir imagen</button>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script>
+        let selectedFile = null;
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                selectedFile = file;
+                previewImage(file);
+                updateFileLabel(file.name);
+            }
+        });
+
+        function previewImage(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+                previewImg.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateFileLabel(fileName) {
+            const label = document.querySelector('.file-input-label span');
+            label.textContent = fileName;
+        }
+
+        function openImageModal() {
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('uploadForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('uploadProgress').style.display = 'none';
+            document.getElementById('uploadMessage').innerHTML = '';
+            document.querySelector('.file-input-label span').textContent = 'Seleccionar imagen';
+            selectedFile = null;
+        }
+
+        function uploadImage() {
+            if (!selectedFile) {
+                showMessage('Por favor selecciona una imagen', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('profileImage', selectedFile);
+
+            document.getElementById('uploadProgress').style.display = 'block';
+            
+            fetch('/profile/upload-image', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('uploadProgress').style.display = 'none';
+                
+                if (data.success) {
+                    document.getElementById('profileImg').src = data.imagePath;
+                    showMessage(data.message, 'success');
+                    
+                    setTimeout(() => {
+                        closeImageModal();
+                        location.reload();
+                    }, 1500);
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                document.getElementById('uploadProgress').style.display = 'none';
+                console.error('Error:', error);
+                showMessage('Error al subir la imagen', 'error');
+            });
+        }
+
+        function deleteProfileImage() {
+            if (!confirm('¿Estás seguro de que quieres eliminar tu imagen de perfil?')) {
+                return;
+            }
+
+            fetch('/profile/delete-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('profileImg').src = '/images/default-avatar.png';
+                    showMessage(data.message, 'success');
+                    
+                    setTimeout(() => {
+                        closeImageModal();
+                        location.reload();
+                    }, 1500);
+                } else {
+                    showMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('Error al eliminar la imagen', 'error');
+            });
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('uploadMessage');
+            messageDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (e.target === modal) {
+                closeImageModal();
+            }
+        });
+    </script>
 
 <%- include("partials/footer.ejs") %>
