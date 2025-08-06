@@ -35,5 +35,14 @@
     "password": "Img1234*",
     "name": "ImgTest",
     "profileImage": "/uploads/profiles/profile-1754438957772-400989628.jpg"
+  },
+  {
+    "id": 6,
+    "username": "M",
+    "email": "m@gmail.com",
+    "password": "Contraseña1",
+    "name": "M",
+    "profileImage": "/uploads/profiles/profile-1754442947893-919093583.jpg",
+    "createdAt": "2025-08-06T01:15:27.927Z"
   }
 ]

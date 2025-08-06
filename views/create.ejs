@@ -7,9 +7,9 @@
       <p>Comparte tus ideas con el mundo</p>
     </div>
 
-    <form action="/create" method="POST" class="create-form">
+    <form action="/create" method="POST" enctype="multipart/form-data" class="create-form">
       <div class="form-group">
-        <label for="title"> Título del Post </label>
+        <label for="title">Título del Post</label>
         <input
           type="text"
           id="title"
@@ -19,7 +19,8 @@
         />
       </div>
 
-      <label for="postImage">Imagen del Post (Opcional)</label>
+      <div class="form-group">
+        <label for="postImage">Imagen del Post (Opcional)</label>
         <div class="image-upload-container">
           <input 
             type="file" 
@@ -55,7 +56,7 @@
       </div>
 
       <div class="form-group">
-        <label for="content"> Contenido </label>
+        <label for="content">Contenido</label>
         <textarea
           id="content"
           name="content"
@@ -66,65 +67,81 @@
       </div>
 
       <div class="form-actions">
-        <a href="/" class="btn btn-secondary"> Cancelar </a>
-        <button type="submit" class="btn btn-primary">Publicar Post</button>
+        <a href="/" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="btn-text">Publicar Post</span>
+          <span class="btn-loading" style="display: none;">
+            <svg class="spinner" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.3"/>
+              <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+            </svg>
+            Subiendo...
+          </span>
+        </button>
       </div>
     </form>
   </div>
+</div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('postImage');
-    const preview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-    const fileLabel = document.querySelector('.file-input-text');
-    const form = document.querySelector('.create-form');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = submitBtn.querySelector('.btn-text');
-    const btnLoading = submitBtn.querySelector('.btn-loading');
+document.addEventListener('DOMContentLoaded', function() {
+  const fileInput = document.getElementById('postImage');
+  const preview = document.getElementById('imagePreview');
+  const previewImg = document.getElementById('previewImg');
+  const fileLabel = document.querySelector('.file-input-text');
+  const form = document.querySelector('.create-form');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const btnLoading = submitBtn.querySelector('.btn-loading');
 
-    fileInput.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        if (file.size > 5 * 1024 * 1024) {
-          alert('El archivo es demasiado grande. Máximo 5MB.');
-          fileInput.value = '';
-          return;
-        }
-
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-        if (!validTypes.includes(file.type)) {
-          alert('Tipo de archivo no válido. Solo se permiten imágenes JPG, PNG, GIF, WebP.');
-          fileInput.value = '';
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          previewImg.src = e.target.result;
-          preview.style.display = 'block';
-          fileLabel.textContent = file.name;
-        };
-        reader.readAsDataURL(file);
+  // Manejo del input de archivo
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      // Validar tamaño
+      if (file.size > 5 * 1024 * 1024) {
+        alert('El archivo es demasiado grande. Máximo 5MB.');
+        fileInput.value = '';
+        return;
       }
-    });
 
-    form.addEventListener('submit', function() {
-      btnText.style.display = 'none';
-      btnLoading.style.display = 'flex';
-      submitBtn.disabled = true;
-    });
+      // Validar tipo
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert('Tipo de archivo no válido. Solo se permiten imágenes JPG, PNG, GIF, WebP.');
+        fileInput.value = '';
+        return;
+      }
+
+      // Mostrar preview
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        preview.style.display = 'block';
+        fileLabel.textContent = file.name;
+      };
+      reader.readAsDataURL(file);
+    }
   });
 
-  function removeImage() {
-    const fileInput = document.getElementById('postImage');
-    const preview = document.getElementById('imagePreview');
-    const fileLabel = document.querySelector('.file-input-text');
-    
-    fileInput.value = '';
-    preview.style.display = 'none';
-    fileLabel.textContent = 'Seleccionar imagen';
-  }
+  // Manejo del envío del formulario
+  form.addEventListener('submit', function() {
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'flex';
+    submitBtn.disabled = true;
+  });
+});
+
+// Función para remover imagen
+function removeImage() {
+  const fileInput = document.getElementById('postImage');
+  const preview = document.getElementById('imagePreview');
+  const fileLabel = document.querySelector('.file-input-text');
+  
+  fileInput.value = '';
+  preview.style.display = 'none';
+  fileLabel.textContent = 'Seleccionar imagen';
+}
 </script>
 
 <%- include("partials/footer.ejs") %>
