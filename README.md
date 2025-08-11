@@ -76,9 +76,6 @@ Un blog personal moderno y completamente responsive construido con Node.js, Expr
 | 📱 **XS Mobile** | 320px - 575px | Stack vertical, texto optimizado |
 | 📱 **SM Mobile** | 576px - 767px | Menú hamburguesa, cards 1 columna |
 | 📱 **MD Tablet** | 768px - 991px | Transición a desktop, 2 columnas |
-| 💻 **LG Desktop** | 992px - 1199px | Navegación completa, 3 columnas |
-| 🖥️ **XL Desktop** | 1200px - 1399px | Layout completo, 4 columnas |
-| 🖥️ **XXL Large** | 1400px+ | Espaciado máximo, contenido centrado |
 
 ## 🚀 Instalación Rápida
 
@@ -99,12 +96,7 @@ npm install
 # 3. Crear estructura de datos
 mkdir -p data public/js
 
-# 4. Copiar archivos responsive (si actualizas de v1.0)
-# Los archivos mobile-nav.css y mobile-nav.js deben estar en:
-# public/styles/mobile-nav.css
-# public/js/mobile-nav.js
-
-# 5. Ejecutar aplicación
+# 4. Ejecutar aplicación
 npm start
 ```
 
