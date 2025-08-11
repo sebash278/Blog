@@ -65,7 +65,7 @@ Un blog personal moderno y elegante construido con Node.js, Express y EJS. Dise√
 
 1. **Clonar el repositorio**
 ```bash
-git clone https://github.com/tu-usuario/blogsini.git
+git clone https://github.com/sebash278/Blog.git
 cd blogsini
 ```
 
