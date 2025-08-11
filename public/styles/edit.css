@@ -253,31 +253,119 @@
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .create-container {
     margin: 1rem;
     padding: 1.5rem;
+    border-radius: 16px;
   }
 
   .create-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
   }
 
-  .form-actions {
-    flex-direction: column;
+  .create-header p {
+    font-size: 1rem;
   }
 
-  .btn {
-    width: 100%;
+  .create-form {
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    gap: 0.5rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  .form-group textarea {
+    min-height: 180px;
   }
 
   .file-input-label {
     padding: 1.5rem 1rem;
     min-height: 100px;
+    border-radius: 10px;
   }
 
   .file-input-label svg {
     width: 28px;
     height: 28px;
+  }
+
+  .file-input-text {
+    font-size: 0.9rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    order: 1;
+  }
+
+  .form-actions .btn-secondary {
+    order: 2;
+  }
+}
+
+@media (max-width: 575px) {
+  .create-container {
+    margin: 0.5rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .create-header h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .create-header p {
+    font-size: 0.9rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .form-group textarea {
+    min-height: 160px;
+  }
+
+  .file-input-label {
+    padding: 1.25rem 0.75rem;
+    min-height: 90px;
+  }
+
+  .file-input-label svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .file-input-text {
+    font-size: 0.85rem;
+  }
+
+  .image-preview img {
+    max-height: 250px;
+  }
+
+  .remove-image {
+    width: 28px;
+    height: 28px;
+    top: 8px;
+    right: 8px;
   }
 }
