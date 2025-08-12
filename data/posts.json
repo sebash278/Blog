@@ -1,88 +1,137 @@
 [
   {
-    "id": 9,
-    "title": "xd",
-    "content": "adasdasdsad",
-    "author": "ImagenTest",
-    "date": "5/8/2025",
-    "likes": 1,
-    "featuredImage": "/uploads/posts/post-1754438927242-472262691.jpg",
-    "likedBy": [
-      2
-    ]
+    "id": 10,
+    "title": "El regreso del HTML semántico",
+    "content": "En la era de los frameworks, muchos olvidan que el HTML semántico sigue siendo la base de la accesibilidad y el SEO. Aquí te muestro cómo mejorar tu estructura con etiquetas olvidadas como <figure>, <mark> o <aside>, y por qué tu futuro yo te lo va a agradecer.",
+    "author": "jenn",
+    "date": "6/8/2025",
+    "likes": 3,
+    "likedBy": []
   },
   {
-    "id": 1,
-    "title": "La revolución de la IA en el desarrollo web moderno",
-    "content": "La inteligencia artificial está transformando completamente la manera en que desarrollamos aplicaciones web. Desde herramientas de code completion hasta sistemas de testing automatizado, la IA se está convirtiendo en el mejor amigo del desarrollador. En este post exploramos las últimas tendencias, herramientas como GitHub Copilot, ChatGPT para debugging, y cómo estas tecnologías están democratizando el acceso al código. También analizamos el impacto en el mercado laboral y qué habilidades necesitarás para mantenerte relevante en esta nueva era digital.",
+    "id": 11,
+    "title": "Cómo optimizar imágenes sin perder calidad",
+    "content": "Las imágenes son responsables de la mayoría del peso en un sitio web. Te enseño trucos con formatos modernos como WebP y AVIF, lazy loading y compresión inteligente para que tu web cargue como rayo sin sacrificar estética.",
+    "author": "userTest",
+    "date": "6/8/2025",
+    "likes": 4,
+    "likedBy": []
+  },
+  {
+    "id": 12,
+    "title": "Mi primer error fatal en producción (y cómo sobreviví)",
+    "content": "Todos tenemos ese momento de 'lo rompí todo'. Te cuento la vez que un pequeño cambio en el backend tumbó toda la app... y lo que aprendí sobre backups, logs y no confiarme demasiado.",
+    "author": "ImagenTest",
+    "date": "5/8/2025",
+    "likes": 5,
+    "likedBy": []
+  },
+  {
+    "id": 13,
+    "title": "La magia de las animaciones con CSS",
+    "content": "No necesitas JavaScript para animar elementos increíbles. Con `@keyframes`, `transform` y `clip-path` puedes lograr efectos que harán que tu interfaz se sienta viva y fluida.",
+    "author": "jenn",
+    "date": "5/8/2025",
+    "likes": 6,
+    "likedBy": []
+  },
+  {
+    "id": 14,
+    "title": "Dark patterns: el lado oscuro del UX",
+    "content": "Algunos diseñadores usan trucos visuales para manipular al usuario. Analizamos ejemplos reales y cómo evitarlos si quieres mantener un producto ético y centrado en la confianza.",
+    "author": "userTest",
+    "date": "4/8/2025",
+    "likes": 4,
+    "likedBy": []
+  },
+  {
+    "id": 15,
+    "title": "Por qué TypeScript salvó mi cordura",
+    "content": "Pasé de debuggear bugs imposibles a detectar errores antes de ejecutar el código. Te cuento cómo TypeScript se volvió parte esencial de mi stack y por qué creo que todo dev debería al menos probarlo.",
+    "author": "jenn",
+    "date": "4/8/2025",
+    "likes": 5,
+    "likedBy": []
+  },
+  {
+    "id": 16,
+    "title": "Microinteracciones: pequeños detalles, gran impacto",
+    "content": "Desde un botón que vibra al darle click hasta un icono que cambia suavemente, las microinteracciones mejoran la experiencia del usuario y hacen que tu app se sienta cuidada.",
+    "author": "ImagenTest",
+    "date": "3/8/2025",
+    "likes": 3,
+    "likedBy": []
+  },
+  {
+    "id": 17,
+    "title": "API REST vs GraphQL: mi experiencia real",
+    "content": "Probé ambos para el mismo proyecto y descubrí cuándo GraphQL brilla y cuándo REST sigue siendo la opción más simple. Spoiler: no hay bala de plata.",
+    "author": "userTest",
+    "date": "3/8/2025",
+    "likes": 6,
+    "likedBy": []
+  },
+  {
+    "id": 18,
+    "title": "Diseño accesible: más allá de los colores",
+    "content": "La accesibilidad no es solo contraste de color. Hablemos de ARIA roles, navegación por teclado y descripciones alternativas que realmente ayuden.",
     "author": "jenn",
     "date": "2/8/2025",
+    "likes": 5,
+    "likedBy": []
+  },
+  {
+    "id": 19,
+    "title": "Lo que nadie te dice sobre freelancing en tech",
+    "content": "Trabajar por tu cuenta suena increíble, pero hay retos invisibles: clientes difíciles, pagos atrasados, y la soledad laboral. Aquí mi visión honesta después de un año en esto.",
+    "author": "userTest",
+    "date": "2/8/2025",
+    "likes": 4,
+    "likedBy": []
+  },
+  {
+    "id": 20,
+    "title": "Mi setup de escritorio para codear horas sin morir",
+    "content": "Desde una buena silla hasta la iluminación correcta, estos ajustes han hecho que pueda trabajar más tiempo sin dolor de espalda ni fatiga visual.",
+    "author": "ImagenTest",
+    "date": "1/8/2025",
     "likes": 7,
     "likedBy": []
   },
   {
-    "id": 2,
-    "title": "CSS Grid vs Flexbox: Cuándo usar cada uno",
-    "content": "Una de las preguntas más comunes en frontend: ¿CSS Grid o Flexbox? La respuesta no es tan simple. Flexbox es perfecto para layouts unidimensionales, mientras que Grid brilla en layouts bidimensionales complejos. Te explico con ejemplos prácticos cuándo usar cada uno.",
-    "author": "userTest",
+    "id": 21,
+    "title": "Cuando usar un framework CSS y cuando no",
+    "content": "Tailwind, Bootstrap, Bulma... ¿realmente los necesitas? Te explico en qué proyectos un framework te salva tiempo y en cuáles es mejor ir con CSS puro.",
+    "author": "jenn",
     "date": "1/8/2025",
     "likes": 5,
     "likedBy": []
   },
   {
-    "id": 3,
-    "title": "Mi experiencia aprendiendo Node.js en 30 días",
-    "content": "Hace un mes no sabía nada de backend. Hoy tengo mi propio blog funcionando con Node.js y Express. Te cuento todos los recursos que usé, los errores que cometí, y los consejos que me hubiera gustado tener al principio.",
+    "id": 22,
+    "title": "El arte de nombrar variables",
+    "content": "Un buen nombre de variable ahorra más tiempo que cualquier comentario. Hablemos de convenciones, contextos y cómo evitar el mítico 'data' para todo.",
+    "author": "userTest",
+    "date": "31/7/2025",
+    "likes": 6,
+    "likedBy": []
+  },
+  {
+    "id": 23,
+    "title": "5 extensiones de VSCode que cambiaron mi workflow",
+    "content": "Desde Prettier hasta Live Server, estas extensiones han hecho que codear sea más rápido, ordenado y hasta divertido.",
     "author": "jenn",
     "date": "31/7/2025",
     "likes": 5,
     "likedBy": []
   },
   {
-    "id": 4,
-    "title": "Dark Mode: Más que una tendencia",
-    "content": "El modo oscuro no es solo estética. Reduce la fatiga visual, ahorra batería en dispositivos OLED, y mejora la accesibilidad. Te enseño cómo implementarlo correctamente con CSS custom properties.",
-    "author": "userTest",
+    "id": 24,
+    "title": "Aprendiendo a testear sin odiarlo",
+    "content": "Escribir tests parece tedioso, pero entender herramientas como Jest o Vitest me ayudó a verlos como un aliado que me ahorra dolores de cabeza en producción.",
+    "author": "ImagenTest",
     "date": "30/7/2025",
-    "likes": 5,
+    "likes": 4,
     "likedBy": []
-  },
-  {
-    "id": 5,
-    "title": "JavaScript: 5 trucos que no conocías",
-    "content": "Destructuring avanzado, optional chaining, nullish coalescing... JavaScript evoluciona rápidamente. Estos 5 trucos van a hacer tu código más limpio y eficiente. Perfecto para desarrolladores que quieren nivel up.",
-    "author": "jenn",
-    "date": "29/7/2025",
-    "likes": 6,
-    "likedBy": [
-      2
-    ]
-  },
-  {
-    "id": 6,
-    "title": "Por qué dejé React por Vue",
-    "content": "Después de 2 años con React, decidí probar Vue 3. La curva de aprendizaje, el ecosistema, la developer experience... Te comparto mi experiencia honesta y por qué no me arrepiento del cambio.",
-    "author": "userTest",
-    "date": "28/7/2025",
-    "likes": 6,
-    "likedBy": [
-      2
-    ]
-  },
-  {
-    "id": 7,
-    "title": "Git flow para principiantes",
-    "content": "Git puede ser intimidante al principio. Branches, merges, conflicts... Te explico el workflow básico que uso en todos mis proyectos y cómo evitar los errores más comunes.",
-    "author": "jenn",
-    "date": "27/7/2025",
-    "likes": 5
-  },
-  {
-    "id": 8,
-    "title": "Responsive design en 2025",
-    "content": "Mobile-first ya no es suficiente. Con foldables, smartwatches, y pantallas ultra-wide, necesitamos pensar en responsive de manera diferente. Container queries están cambiando el juego.",
-    "author": "userTest",
-    "date": "26/7/2025",
-    "likes": 5
   }
 ]
